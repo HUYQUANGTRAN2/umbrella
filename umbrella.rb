@@ -8,9 +8,9 @@ require "dotenv/load"
 # Hidden variables
 google_key = ENV.fetch("Google_key")
 pirate_key = ENV.fetch("Pirate_key")
-# pp "Where are you?"
+pp "Where are you?"
 
-their_location = "Gleacher center"
+their_location = gets.chomp
 
 location_response = HTTP.get("https://maps.googleapis.com/maps/api/geocode/json?address=#{their_location}&key=#{google_key}")
 
@@ -22,7 +22,7 @@ newest_hash = new_hash.fetch("geometry").fetch("location")
 latitude = newest_hash.fetch("lat")
 longtitude = newest_hash.fetch("lng")
 
-pp weather_reponse = HTTP.get("https://api.pirateweather.net/forecast/#{pirate_key}/#{latitude},#{longtitude}")
+weather_reponse = HTTP.get("https://api.pirateweather.net/forecast/#{pirate_key}/#{latitude},#{longtitude}")
 parsed_response = JSON.parse(weather_reponse)
 currently_hash = parsed_response.fetch("currently")
 current_temp = currently_hash.fetch("temperature")
